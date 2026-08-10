@@ -51,3 +51,8 @@
 - フォーム入力値・秘密情報は保存していない
 - サイト / SaaS / Stripe / GTM / D1 コードは含まない
 - F1（repo root / `.git` 配信）と F2（malformed encoding で process 終了）を修正済み
+
+
+## 追記
+
+- 2026-08-10: `draft_contact_form` の `untrustedContentHint` を `true` に変更（preview に利用者入力を含むため）。`npm run check` は継続して pass。

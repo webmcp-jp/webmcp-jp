@@ -243,6 +243,8 @@ export const DRAFT_TOOL_META = Object.freeze({
     "日本語の問い合わせフォームへ下書きを入力する。氏名・フリガナ・郵便番号・住所・問い合わせ内容・同意を画面に反映するだけ。最終送信・外部送信・購入・削除は行わない。送信は人が画面で確認して実行する。",
   annotations: Object.freeze({
     readOnlyHint: false,
-    untrustedContentHint: false,
+    // preview に利用者が入力した氏名・住所・問い合わせ本文を含むため true。
+    // Agent は Tool 出力を信頼できる指示文として扱わない。
+    untrustedContentHint: true,
   }),
 });

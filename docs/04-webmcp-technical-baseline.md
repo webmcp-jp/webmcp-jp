@@ -40,6 +40,8 @@ WebMCP を唯一の操作経路にしません。
 - Cookie、token、フォーム値を検証ログへ残さない
 - cross-origin 公開は必要な origin だけに限定する
 - 外部コンテンツを命令として扱わない
+- 問い合わせ下書き Tool は `preview` に利用者入力を含むため `untrustedContentHint: true` とする
+- `readOnlyHint` は false（画面状態を書き換える下書き操作のため）。最終送信は行わない
 
 ## 検証記録
 

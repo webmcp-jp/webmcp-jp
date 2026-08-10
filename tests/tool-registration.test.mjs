@@ -61,6 +61,7 @@ test("Tool登録: draft_contact_form のメタデータと schema が定義さ�
   assert.match(DRAFT_TOOL_META.description, /最終送信/);
   assert.match(DRAFT_TOOL_META.description, /行わない/);
   assert.equal(DRAFT_TOOL_META.annotations.readOnlyHint, false);
+  assert.equal(DRAFT_TOOL_META.annotations.untrustedContentHint, true);
   assert.equal(DRAFT_TOOL_INPUT_SCHEMA.type, "object");
   assert.equal(DRAFT_TOOL_INPUT_SCHEMA.additionalProperties, false);
   assert.ok(DRAFT_TOOL_INPUT_SCHEMA.properties.name);

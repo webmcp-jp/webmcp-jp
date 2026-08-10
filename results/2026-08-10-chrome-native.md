@@ -6,7 +6,7 @@
 - ブラウザ / バージョン: Google Chrome 151.0.7922.109
 - flag / Origin Trial: headless 起動時に `--enable-features=WebMCP,ModelContext,DocumentModelContext` と `--enable-blink-features=WebMCP,ModelContext,DocumentModelContext` を付与（未知 flag は no-op の可能性あり）
 - 実装種別: native
-- 対象 commit: 82d1b9dd4499b7db468184772723f1dcd38ec1d3
+- 対象 commit: 82d1b9dd4499b7db468184772723f1dcd38ec1d3（サンプルUI/Tool実装の確認時点）
 - 判定: pass
 
 ## 手順
@@ -41,3 +41,10 @@
 - 入力値・Cookie・token は results に保存していない
 - 同一環境で feature flag なしの headless 実行では `modelContext` が無い場合があり、その場合は通常UIフォールバックが使われる
 - remote push / GitHub 公開は未実施
+
+
+## 追記
+
+- 2026-08-10: 静的サーバ hardening（`83da89d` 以降）は `scripts/serve.mjs` と server tests の変更であり、`examples/contact-form/` の Tool 登録・送信境界実装自体は未変更だった。
+- 2026-08-10 追加: `untrustedContentHint` を `true` に変更。Chrome ネイティブでの再確認は次回の仕様ウォッチ時に実施する（判定は登録/送信境界の前回 pass を維持し、annotation 変更は文書と Node テストで担保）。
+- 現行 HEAD（記録時）: ce4481b6c363ba538c008308729807003e3ce3d7
