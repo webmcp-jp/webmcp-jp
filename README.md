@@ -1,5 +1,7 @@
 # webmcp-jp
 
+![webMCP.jp](docs/assets/logo-horizontal.png)
+
 日本語Webアプリ向けの **WebMCP** サンプル・テスト・検証結果・技術文書を公開する非公式OSSです。
 
 > WebMCPは提案中のWeb APIです。仕様とブラウザ実装は変わる可能性があります。W3C正式標準、全主要ブラウザ対応、すべてのAgentが利用できる、といった表現は使いません。

@@ -1,5 +1,7 @@
 # README (English)
 
+![webMCP.jp](docs/assets/logo-horizontal.png)
+
 Unofficial OSS with Japanese WebMCP samples, tests, verification notes, and technical docs.
 
 WebMCP is a proposed Web API. Specs and browser implementations can change. This project does not claim W3C Recommendation status, universal browser support, or that WebMCP replaces MCP.
