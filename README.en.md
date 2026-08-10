@@ -24,7 +24,8 @@ git clone https://github.com/webmcp-jp/webmcp-jp.git
 cd webmcp-jp
 npm test
 npm start
-# open http://127.0.0.1:4173/examples/contact-form/
+# open http://127.0.0.1:4173/ (or /examples/contact-form/)
+# The local server serves only examples/contact-form/ (not the repo root or .git).
 ```
 
 ## Sample
@@ -44,6 +45,7 @@ npm start
 | Japanese I/O | name, furigana, address, message round-trip |
 | Submit boundary | tool path does not final-submit |
 | Normal UI | form works without WebMCP |
+| Static server | sample allowlist only; rejects `.git` / parent paths; survives malformed URLs |
 
 ## License
 

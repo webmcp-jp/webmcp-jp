@@ -48,7 +48,8 @@ npm test
 npm start
 ```
 
-ブラウザで `http://127.0.0.1:4173/examples/contact-form/` を開きます。
+ブラウザで `http://127.0.0.1:4173/`（または `http://127.0.0.1:4173/examples/contact-form/`）を開きます。
+ローカルサーバは `examples/contact-form/` のみを配信し、リポジトリ root や `.git` は公開しません。
 
 1. 氏名・フリガナ・郵便番号・住所・問い合わせ内容・同意を入力する
 2. WebMCP対応環境では `draft_contact_form` が登録される
@@ -80,6 +81,7 @@ npm run lint
 | 日本語入出力 | 日本語文字列の正規化・往復・部分更新 |
 | 送信前確認 | Toolだけでは `submitted` にならない／二重送信防止 |
 | 通常UI | HTML構造と、WebMCP APIなしでの検証・送信ゲート |
+| 静的サーバ | allowlist（contact-form のみ）、`.git` / 親パス拒否、malformed URL で process 継続 |
 
 ## ディレクトリ
 
