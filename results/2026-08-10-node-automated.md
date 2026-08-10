@@ -7,7 +7,7 @@
 - ブラウザ / バージョン: なし（`node --test`）
 - flag / Origin Trial: なし
 - 実装種別: node-automated
-- 対象 commit: e6c0d135dec0c83e61bb29137bc9a70c71bad68d
+- 対象 commit: 83da89dff835cacd415022080b7691f55c0fa916
 - 判定: pass
 
 ## 手順
