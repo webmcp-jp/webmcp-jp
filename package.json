@@ -24,10 +24,10 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/0809android/webmcp-jp.git"
+    "url": "https://github.com/webmcp-jp/webmcp-jp.git"
   },
   "bugs": {
-    "url": "https://github.com/0809android/webmcp-jp/issues"
+    "url": "https://github.com/webmcp-jp/webmcp-jp/issues"
   },
   "homepage": "https://webmcp.jp"
 }
