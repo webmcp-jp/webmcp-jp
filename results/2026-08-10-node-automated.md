@@ -6,7 +6,7 @@
 - ブラウザ / バージョン: なし（`node --test`）
 - flag / Origin Trial: なし
 - 実装種別: node-automated
-- 対象 commit: （初回ローカル commit 前。記録時点の working tree）
+- 対象 commit: 82d1b9dd4499b7db468184772723f1dcd38ec1d3
 - 判定: pass
 
 ## 手順

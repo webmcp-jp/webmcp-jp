@@ -6,7 +6,7 @@
 - ブラウザ / バージョン: Google Chrome 151.0.7922.109
 - flag / Origin Trial: headless 起動時に `--enable-features=WebMCP,ModelContext,DocumentModelContext` と `--enable-blink-features=WebMCP,ModelContext,DocumentModelContext` を付与（未知 flag は no-op の可能性あり）
 - 実装種別: native
-- 対象 commit: （初回ローカル commit 前。記録時点の working tree）
+- 対象 commit: 82d1b9dd4499b7db468184772723f1dcd38ec1d3
 - 判定: pass
 
 ## 手順
