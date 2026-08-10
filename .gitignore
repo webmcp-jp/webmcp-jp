@@ -9,3 +9,9 @@ coverage/
 .idea/
 .vscode/
 *.swp
+
+# Local-only scratch (not part of the published OSS tree)
+.worktrees/
+brand/logo-concepts/
+brand/.DS_Store
+.DS_Store
