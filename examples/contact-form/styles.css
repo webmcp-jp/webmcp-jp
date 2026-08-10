@@ -1,0 +1,257 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f4f1ea;
+  --panel: #fffdf8;
+  --ink: #1d1a16;
+  --muted: #5f574c;
+  --line: #d9d0c2;
+  --accent: #0f6b5c;
+  --accent-ink: #f7fffc;
+  --warn: #8a3b12;
+  --ok: #146c43;
+  --danger: #9b1c1c;
+  --shadow: 0 12px 40px rgba(40, 28, 12, 0.08);
+  font-family: "Hiragino Sans", "Noto Sans JP", "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14110f;
+    --panel: #1d1915;
+    --ink: #f6f0e7;
+    --muted: #c2b7a7;
+    --line: #3a3229;
+    --accent: #3fbfa7;
+    --accent-ink: #06231e;
+    --warn: #ffb577;
+    --ok: #6ddea5;
+    --danger: #ff8f8f;
+    --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(15, 107, 92, 0.12), transparent 28%),
+    linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg) 80%, #d8c7a8));
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+code {
+  font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+  font-size: 0.92em;
+}
+
+.site-header,
+.site-footer,
+.layout {
+  width: min(1100px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.site-header {
+  padding: 2.5rem 0 1rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  margin: 0 0 0.6rem;
+}
+
+.lede {
+  max-width: 46rem;
+  color: var(--muted);
+}
+
+.registration {
+  display: inline-flex;
+  margin-top: 1rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 88%, white);
+  font-size: 0.92rem;
+}
+
+.registration[data-state="registered"] {
+  border-color: color-mix(in srgb, var(--ok) 50%, var(--line));
+  color: var(--ok);
+}
+
+.registration[data-state="unsupported"],
+.registration[data-state="error"] {
+  border-color: color-mix(in srgb, var(--warn) 50%, var(--line));
+  color: var(--warn);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.25rem;
+  padding-bottom: 2rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.hint {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+label.checkbox {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  font-weight: 500;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+  background: color-mix(in srgb, var(--panel) 90%, white);
+  color: var(--ink);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.75rem 1.1rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.errors {
+  margin: 0;
+  padding: 0.8rem 0.8rem 0.8rem 1.4rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--danger) 12%, var(--panel));
+  color: var(--danger);
+}
+
+.status {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+}
+
+.status[data-kind="success"] {
+  background: color-mix(in srgb, var(--ok) 14%, var(--panel));
+  color: var(--ok);
+}
+
+.status[data-kind="warn"] {
+  background: color-mix(in srgb, var(--warn) 14%, var(--panel));
+  color: var(--warn);
+}
+
+.preview,
+.tool-log {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 86%, black);
+  padding: 0.8rem;
+  overflow: auto;
+}
+
+.preview {
+  min-height: 10rem;
+  font-size: 0.86rem;
+}
+
+.tool-log {
+  min-height: 7rem;
+  max-height: 14rem;
+}
+
+.tool-log p {
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+details {
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+.site-footer {
+  padding: 0 0 2.5rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}

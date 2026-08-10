@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>日本語問い合わせフォーム — webmcp-jp</title>
+    <meta
+      name="description"
+      content="document.modelContext を使う日本語問い合わせフォームの WebMCP サンプル。通常UIを残し、Tool は下書きまでに限定します。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <p class="eyebrow">webmcp-jp sample</p>
+      <h1>日本語問い合わせフォーム</h1>
+      <p class="lede">
+        通常のフォーム操作を壊さず、<code>document.modelContext</code> で下書き用 Tool
+        を公開する最小例です。最終送信は人が画面で確認して実行します。
+      </p>
+      <p id="webmcp-registration" class="registration" data-state="checking">
+        WebMCP対応を確認中…
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="panel" aria-labelledby="form-heading">
+        <h2 id="form-heading">通常UI</h2>
+        <p class="hint">
+          WebMCP がなくてもこのフォームだけで問い合わせ下書きと送信確認ができます。
+        </p>
+
+        <form id="contact-form" novalidate>
+          <label>
+            氏名
+            <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required />
+          </label>
+
+          <label>
+            フリガナ
+            <input
+              id="furigana"
+              name="furigana"
+              type="text"
+              autocomplete="off"
+              maxlength="80"
+              required
+            />
+          </label>
+
+          <label>
+            郵便番号
+            <input
+              id="postalCode"
+              name="postalCode"
+              type="text"
+              inputmode="numeric"
+              autocomplete="postal-code"
+              maxlength="8"
+              placeholder="123-4567"
+              required
+            />
+          </label>
+
+          <label>
+            住所
+            <input
+              id="address"
+              name="address"
+              type="text"
+              autocomplete="street-address"
+              maxlength="200"
+              required
+            />
+          </label>
+
+          <label>
+            問い合わせ内容
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              maxlength="2000"
+              required
+            ></textarea>
+          </label>
+
+          <label class="checkbox">
+            <input id="consent" name="consent" type="checkbox" value="true" required />
+            <span>個人情報の取扱いに同意する</span>
+          </label>
+
+          <ul id="form-errors" class="errors" hidden></ul>
+          <p id="form-status" class="status" data-kind="info" hidden></p>
+
+          <div class="actions">
+            <button id="submit-button" type="submit">内容を確認して送信</button>
+            <button id="reset-button" type="button" class="secondary">リセット</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="panel side" aria-labelledby="agent-heading">
+        <h2 id="agent-heading">WebMCP / 下書き状態</h2>
+        <p class="hint">
+          Tool 名: <code>draft_contact_form</code>。実行しても最終送信はしません。
+        </p>
+
+        <h3>現在の下書きプレビュー</h3>
+        <pre id="draft-preview" class="preview">{}</pre>
+
+        <h3>Tool ログ</h3>
+        <div id="tool-log" class="tool-log" aria-live="polite">
+          <p>まだ Tool 実行はありません。</p>
+        </div>
+
+        <details>
+          <summary>ローカルでの手動確認</summary>
+          <ol>
+            <li><code>npm start</code> でこのページを開く</li>
+            <li>Chrome の WebMCP 対応環境なら Tool 登録状態が変わります</li>
+            <li>
+              DevTools コンソール例:
+              <code
+                >await window.__webmcpJpContactForm.executeDraftTool({ name: "山田 太郎", furigana:
+                "ヤマダ タロウ", postalCode: "100-0001", address: "東京都千代田区1-1", message:
+                "資料請求したいです。", consent: true })</code
+              >
+            </li>
+            <li>送信ボタンを人が押すまで <code>submitted</code> は false のままです</li>
+          </ol>
+        </details>
+      </aside>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        非公式 OSS。WebMCP は提案中の Web API です。仕様とブラウザ実装は変わる可能性があります。
+      </p>
+      <p>
+        一次資料:
+        <a href="https://webmachinelearning.github.io/webmcp/">WebMCP Draft</a>
+        /
+        <a href="https://developer.chrome.com/docs/ai/webmcp/imperative-api">Chrome Imperative API</a>
+      </p>
+    </footer>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
