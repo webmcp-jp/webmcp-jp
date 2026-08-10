@@ -14,16 +14,18 @@
 - 外部の Issue、コメント、PR は運営者の明示承認後に行う
 - remote の改名、作成、push は運営者の明示承認後に行う
 - 初版 LICENSE は Apache-2.0（推奨候補）を配置する
+- GitHub Organization は `webmcp-jp`（Free）とする
 
 ## 現在の状態
 
-- 新 `webmcp-jp` は clean start のローカルリポジトリとして作成済み（このツリー）
-- GitHub remote の作成・push・旧リポジトリ改名は未実施（承認待ち）
+- OSS: https://github.com/webmcp-jp/webmcp-jp （public）
+- サイト: https://github.com/webmcp-jp/webmcp-jp-site （private）
+- 旧個人アカウント配下から Organization へ移管済み
 - 自動テストは Node 上で再実行可能
-- Chrome ネイティブ WebMCP の実機フラグ確認は環境依存のため、結果テンプレとローカル実行記録を用意
+- Chrome ネイティブ WebMCP の実機確認は環境依存のため、結果テンプレとローカル実行記録を用意
 
 ## 未決事項
 
-- GitHub 上でのリポジトリ公開日時と remote URL の最終確定
 - 初回 Chrome 検証で記録するバージョンと flag（実機実行時に記入）
 - MCP-B 比較を追加するかどうかと、その評価条件
+- サイト側の公開日時とホスティング設定の最終確定

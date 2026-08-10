@@ -4,6 +4,16 @@
 
 > WebMCPは提案中のWeb APIです。仕様とブラウザ実装は変わる可能性があります。W3C正式標準、全主要ブラウザ対応、すべてのAgentが利用できる、といった表現は使いません。
 
+## リポジトリ
+
+| 名前 | 役割 | GitHub |
+|---|---|---|
+| `webmcp-jp` | このOSS（サンプル・テスト・検証結果・技術文書） | https://github.com/webmcp-jp/webmcp-jp |
+| `webmcp-jp-site` | `webmcp.jp` のサイト実装と運用機能 | https://github.com/webmcp-jp/webmcp-jp-site |
+| `webmcp.jp` | 公開ドメインとブランド | https://webmcp.jp |
+
+GitHub Organization: [webmcp-jp](https://github.com/webmcp-jp)
+
 ## できること
 
 - `document.modelContext` で日本語問い合わせフォームの **下書きTool** を登録する
@@ -20,7 +30,7 @@
 - 協会・認証制度の運営
 - MCP-B への初期依存（必要なら後から任意比較）
 
-サイト実装は別リポジトリ `webmcp-jp-site` で扱います（分離方針は決定済み。GitHub上の改名・作成・pushは運営者承認後）。
+サイト実装は別リポジトリ [`webmcp-jp-site`](https://github.com/webmcp-jp/webmcp-jp-site) で扱います。
 
 ## 必要環境
 
@@ -30,7 +40,7 @@
 ## 5分で試す
 
 ```bash
-git clone <this-repo>
+git clone https://github.com/webmcp-jp/webmcp-jp.git
 cd webmcp-jp
 npm test
 npm start
@@ -93,8 +103,6 @@ scripts/serve.mjs        依存ゼロのローカルサーバ
 ## ライセンス
 
 [Apache License 2.0](LICENSE)
-
-公開前の最終ライセンス確定は運営者が行います。現時点のリポジトリには Apache-2.0 を置いています（docs/06 の推奨候補に沿う）。
 
 ## 参加
 

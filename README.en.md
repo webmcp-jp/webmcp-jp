@@ -4,10 +4,22 @@ Unofficial OSS with Japanese WebMCP samples, tests, verification notes, and tech
 
 WebMCP is a proposed Web API. Specs and browser implementations can change. This project does not claim W3C Recommendation status, universal browser support, or that WebMCP replaces MCP.
 
+## Repositories
+
+| Name | Role | GitHub |
+|---|---|---|
+| `webmcp-jp` | This OSS | https://github.com/webmcp-jp/webmcp-jp |
+| `webmcp-jp-site` | `webmcp.jp` site and ops | https://github.com/webmcp-jp/webmcp-jp-site |
+| `webmcp.jp` | Public domain / brand | https://webmcp.jp |
+
+Organization: [webmcp-jp](https://github.com/webmcp-jp)
+
 ## Quick start
 
 ```bash
 # Node.js 22.13+
+git clone https://github.com/webmcp-jp/webmcp-jp.git
+cd webmcp-jp
 npm test
 npm start
 # open http://127.0.0.1:4173/examples/contact-form/
@@ -37,6 +49,6 @@ Apache License 2.0. See `LICENSE`.
 
 ## Not included
 
-Site CMS, GTM, Stripe, SaaS, association/certification ops. Those belong in `webmcp-jp-site`.
+Site CMS, GTM, Stripe, SaaS, association/certification ops. Those belong in [`webmcp-jp-site`](https://github.com/webmcp-jp/webmcp-jp-site).
 
-External Issues/PRs and remote rename/create/push need operator approval.
+External Issues/PRs that post on behalf of the project need operator approval.

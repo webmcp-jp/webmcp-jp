@@ -4,11 +4,13 @@
 
 ## 三つの名称
 
-| 名称 | 役割 |
-|---|---|
-| `webmcp-jp` | サンプル、テスト、検証結果、技術文書を公開する OSS |
-| `webmcp-jp-site` | `webmcp.jp` のサイト実装とサイト運用機能 |
-| `webmcp.jp` | 公開ドメインと対外的な案内名称 |
+| 名称 | 役割 | 参照 |
+|---|---|---|
+| `webmcp-jp` | サンプル、テスト、検証結果、技術文書を公開する OSS | https://github.com/webmcp-jp/webmcp-jp |
+| `webmcp-jp-site` | `webmcp.jp` のサイト実装とサイト運用機能 | https://github.com/webmcp-jp/webmcp-jp-site |
+| `webmcp.jp` | 公開ドメインと対外的な案内名称 | https://webmcp.jp |
+
+GitHub Organization: https://github.com/webmcp-jp
 
 ## 独立性
 
