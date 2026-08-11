@@ -23,12 +23,13 @@ GitHub Organization: [webmcp-jp](https://github.com/webmcp-jp)
 - Tool実行だけでは最終送信しない（人が画面で確認して送信）
 - Tool登録・日本語入出力・送信前確認・通常UIの自動テストを再実行できる
 - 実行環境付きの検証結果を `results/` に残せる
+- 共通SDKを1 import、または通常フォームに `<script>` 1行で組み込める
 
 ## 含めないもの
 
 - `webmcp.jp` サイト本体、CMS、SEO設定
 - GTM、Stripe、課金、顧客管理
-- SaaS試作、管理画面、外部SDK配信
+- SaaS試作、管理画面、ホスト型SDK配信サービス
 - 協会・認証制度の運営
 - MCP-B への初期依存（必要なら後から任意比較）
 
@@ -49,7 +50,23 @@ npm start
 ```
 
 ブラウザで `http://127.0.0.1:4173/`（または `http://127.0.0.1:4173/examples/contact-form/`）を開きます。
-ローカルサーバは `examples/contact-form/` のみを配信し、リポジトリ root や `.git` は公開しません。
+ローカルサーバは問い合わせサンプル、1行サンプル、SDKソースだけを配信し、リポジトリ root や `.git` は公開しません。
+
+## 1行で試す
+
+通常のHTMLフォームに `data-webmcp-contact` を付け、次の1行を追加します。このリポジトリのローカルサーバでは `/sdk/` がパッケージソースを配信します。
+
+```html
+<script type="module" src="/sdk/autoload.js"></script>
+```
+
+`/sdk/autoload.js` は同一ディレクトリの共通SDKを読み込み、フォームを自動登録します。実例 `http://127.0.0.1:4173/examples/one-line-sdk/` はビルドツールなしで動きます。本番ではnpmパッケージの `src/` を同一originから配信するか、bundlerで `webmcp-jp/autoload` をブラウザ向けに出力してください。npm/import版は次の1 importから始めます（パッケージはまだnpm registryへ公開していません）。
+
+```js
+import { registerContactFormTool } from "webmcp-jp";
+```
+
+React / Vue / vanilla JS の最小例は `examples/react-sdk/`、`examples/vue-sdk/`、`examples/vanilla-sdk/` にあります。APIと安全境界は [SDK組み込みガイド](docs/09-sdk-guide.md) を確認してください。
 
 1. 氏名・フリガナ・郵便番号・住所・問い合わせ内容・同意を入力する
 2. WebMCP対応環境では `draft_contact_form` が登録される
@@ -81,12 +98,15 @@ npm run lint
 | 日本語入出力 | 日本語文字列の正規化・往復・部分更新 |
 | 送信前確認 | Toolだけでは `submitted` にならない／二重送信防止 |
 | 通常UI | HTML構造と、WebMCP APIなしでの検証・送信ゲート |
-| 静的サーバ | allowlist（contact-form のみ）、`.git` / 親パス拒否、malformed URL で process 継続 |
+| SDK | exports/types、登録・日本語下書き・未対応フォールバック・送信済み拒否・各例 |
+| 静的サーバ | allowlist（サンプルとSDKのみ）、`.git` / 親パス拒否、malformed URL で process 継続 |
 
 ## ディレクトリ
 
 ```
 examples/contact-form/   日本語問い合わせフォームのサンプル
+examples/*-sdk/          1行・vanilla・React・Vueの最小例
+src/                     npm SDK本体・型定義・autoload
 tests/                   再現可能な自動テスト
 results/                 環境情報付きの検証結果
 docs/                    技術基準と利用手順
@@ -103,6 +123,7 @@ scripts/serve.mjs        依存ゼロのローカルサーバ
 - [決定事項](docs/08-decisions-and-open-questions.md)
 - [一次資料](docs/research/source-register.md)
 - [検証の書き方](docs/verification.md)
+- [SDK組み込みガイド](docs/09-sdk-guide.md)
 
 ## ライセンス
 
@@ -125,6 +146,7 @@ Full English README: [README.en.md](./README.en.md)
 `webmcp-jp` is an **unofficial** OSS collection of Japanese WebMCP samples, tests, verification notes, and technical docs.
 
 - Uses current `document.modelContext` (not legacy `navigator.modelContext`)
+- Provides a local npm package shape with one-import and one-script integrations
 - One Japanese contact-form sample; the tool only drafts fields
 - Final submit stays human-confirmed in the normal UI
 - No site CMS, GTM, Stripe, or SaaS code in this repository

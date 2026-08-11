@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>1行導入 WebMCP SDK</title>
+  </head>
+  <body>
+    <h1>1行導入 WebMCP SDK</h1>
+    <p data-webmcp-registration>通常UIはWebMCP未対応環境でも利用できます。</p>
+    <p data-webmcp-status></p>
+    <form data-webmcp-contact>
+      <label>氏名 <input name="name" maxlength="80" required /></label>
+      <label>フリガナ <input name="furigana" maxlength="80" required /></label>
+      <label>郵便番号 <input name="postalCode" maxlength="8" required /></label>
+      <label>住所 <input name="address" maxlength="200" required /></label>
+      <label>問い合わせ内容 <textarea name="message" maxlength="2000" required></textarea></label>
+      <label><input name="consent" type="checkbox" value="true" required /> 同意する</label>
+      <button type="submit">人が内容を確認して送信</button>
+    </form>
+
+    <script type="module" src="/sdk/autoload.js"></script>
+    <script type="module">
+      document.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        document.querySelector("[data-webmcp-status]").textContent = "通常UIで送信しました。";
+      });
+    </script>
+  </body>
+</html>

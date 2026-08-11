@@ -4,7 +4,7 @@
  * Usage: npm start
  * Opens http://127.0.0.1:4173/
  *
- * Serves only files under examples/contact-form/.
+ * Serves files under examples/contact-form/ and the packaged SDK under /sdk/.
  * Does not expose the repository root, .git, or other paths.
  */
 
@@ -16,6 +16,8 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
 const publicRoot = path.resolve(repoRoot, "examples", "contact-form");
+const oneLineRoot = path.resolve(repoRoot, "examples", "one-line-sdk");
+const sdkRoot = path.resolve(repoRoot, "src");
 const port = Number(process.env.PORT || 4173);
 const host = process.env.HOST || "127.0.0.1";
 
@@ -128,7 +130,31 @@ export function handleRequest(req, res, publicBase = publicRoot) {
     return;
   }
 
-  let filePath = resolvePublicFile(publicBase, decoded);
+  const isSdkRequest =
+    decoded === "/sdk" ||
+    decoded === "/sdk/" ||
+    decoded.startsWith("/sdk/") ||
+    decoded.startsWith("/src/") ||
+    decoded.startsWith("/examples/src/");
+  const isOneLineRequest =
+    decoded === "/examples/one-line-sdk" ||
+    decoded === "/examples/one-line-sdk/" ||
+    decoded.startsWith("/examples/one-line-sdk/");
+  const selectedRoot = isSdkRequest ? sdkRoot : isOneLineRequest ? oneLineRoot : publicBase;
+  const selectedPath = isSdkRequest
+    ? decoded === "/sdk" || decoded === "/sdk/"
+      ? "/index.js"
+      : decoded.startsWith("/examples/src/")
+        ? decoded.slice("/examples/src".length)
+        : decoded.startsWith("/src/")
+          ? decoded.slice("/src".length)
+          : decoded.slice("/sdk".length)
+    : isOneLineRequest
+      ? decoded === "/examples/one-line-sdk" || decoded === "/examples/one-line-sdk/"
+        ? "/index.html"
+        : decoded.slice("/examples/one-line-sdk".length)
+    : decoded;
+  let filePath = resolvePublicFile(selectedRoot, selectedPath);
   if (!filePath) {
     res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
     res.end("Not found");
@@ -146,10 +172,10 @@ export function handleRequest(req, res, publicBase = publicRoot) {
   }
 
   // Final guard: never leave the public root even if FS layout changes.
-  const rootWithSep = publicBase.endsWith(path.sep)
-    ? publicBase
-    : publicBase + path.sep;
-  if (filePath !== publicBase && !filePath.startsWith(rootWithSep)) {
+  const rootWithSep = selectedRoot.endsWith(path.sep)
+    ? selectedRoot
+    : selectedRoot + path.sep;
+  if (filePath !== selectedRoot && !filePath.startsWith(rootWithSep)) {
     res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
     res.end("Not found");
     return;

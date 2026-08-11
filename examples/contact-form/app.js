@@ -1,12 +1,10 @@
 import {
-  DRAFT_TOOL_INPUT_SCHEMA,
-  DRAFT_TOOL_META,
-  applyDraft,
   buildPreview,
   normalizeInput,
   submitForm,
   validateForm,
 } from "./form-logic.js";
+import { registerContactFormTool } from "../../src/index.js";
 
 /** @typedef {import('./form-logic.js').ContactFormValues} ContactFormValues */
 
@@ -29,6 +27,7 @@ const els = {
 
 /** @type {boolean} */
 let submitted = false;
+let registeredDraftExecute = null;
 
 /**
  * @returns {ContactFormValues}
@@ -118,59 +117,34 @@ function escapeHtml(value) {
  * @param {Record<string, unknown>} input
  */
 async function executeDraftTool(input) {
-  if (submitted) {
-    throw new Error("送信済みのため下書きできません。新しい問い合わせを開いてください。");
+  if (!registeredDraftExecute) {
+    throw new Error("WebMCP Tool は未登録です。対応環境で実行してください。");
   }
-
-  const current = readForm();
-  const { next, applied, skipped } = applyDraft(current, input);
-  writeForm(next);
-
-  const validation = validateForm(next);
-  appendToolLog(
-    `draft_contact_form を実行: 反映=${applied.join(",") || "なし"} / 未反映=${skipped.join(",") || "なし"}`,
-  );
-  showStatus(
-    "WebMCPツールが下書きを反映しました。内容と同意を確認し、送信ボタンを人が押してください。",
-    "info",
-  );
-
-  return {
-    drafted: true,
-    submitted: false,
-    appliedFields: applied,
-    skippedFields: skipped,
-    preview: buildPreview(next),
-    remainingValidationErrors: validation,
-    note: "最終送信は人が画面上で確認して実行します。このツールは送信しません。",
-  };
+  return registeredDraftExecute(input);
 }
 
 async function registerWebMcpTool() {
-  const modelContext = /** @type {Document & { modelContext?: { registerTool: Function } }} */ (
-    document
-  ).modelContext;
-
-  if (!modelContext || typeof modelContext.registerTool !== "function") {
-    setRegistration("unsupported", "WebMCP未対応。通常UIで利用できます。");
-    return;
-  }
-
-  const controller = new AbortController();
-  window.addEventListener("pagehide", () => controller.abort(), { once: true });
-
   try {
-    await modelContext.registerTool(
-      {
-        name: DRAFT_TOOL_META.name,
-        title: DRAFT_TOOL_META.title,
-        description: DRAFT_TOOL_META.description,
-        inputSchema: DRAFT_TOOL_INPUT_SCHEMA,
-        annotations: { ...DRAFT_TOOL_META.annotations },
-        execute: executeDraftTool,
+    const registration = await registerContactFormTool({
+      modelContext: document.modelContext,
+      read: readForm,
+      write: writeForm,
+      isSubmitted: () => submitted,
+      onDraft: (result) => {
+        appendToolLog(
+          `draft_contact_form を実行: 反映=${result.appliedFields.join(",") || "なし"} / 未反映=${result.skippedFields.join(",") || "なし"}`,
+        );
+        showStatus(
+          "WebMCPツールが下書きを反映しました。内容と同意を確認し、送信ボタンを人が押してください。",
+        );
       },
-      { signal: controller.signal },
-    );
+    });
+    if (registration.status === "unsupported") {
+      setRegistration("unsupported", "WebMCP未対応。通常UIで利用できます。");
+      return;
+    }
+    registeredDraftExecute = registration.execute;
+    window.addEventListener("pagehide", registration.unregister, { once: true });
     setRegistration("registered", "WebMCP登録済み: draft_contact_form");
     appendToolLog("draft_contact_form を document.modelContext に登録しました。");
   } catch (error) {

@@ -113,6 +113,21 @@ test("静的サーバ: サンプル本体は 200", async () => {
   });
 });
 
+test("静的サーバ: SDK と1行サンプルだけを追加公開する", async () => {
+  await withServer(async (server) => {
+    const sdk = await request(server, "/sdk/index.js");
+    assert.equal(sdk.status, 200);
+    assert.match(sdk.body, /registerContactFormTool/);
+
+    const sample = await request(server, "/examples/one-line-sdk/");
+    assert.equal(sample.status, 200);
+    assert.match(sample.body, /\/sdk\/autoload\.js/);
+
+    const srcEscape = await request(server, "/sdk/%2e%2e/package.json");
+    assert.equal(srcEscape.status, 404);
+  });
+});
+
 test("静的サーバ: リポジトリ root / .git / 親セグメントを拒否する", async () => {
   await withServer(async (server) => {
     const denied = [

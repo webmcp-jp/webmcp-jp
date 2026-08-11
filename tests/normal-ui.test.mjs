@@ -27,9 +27,11 @@ test("通常UI: サンプルHTMLがフォーム要素を含み、WebMCPなしで
   assert.match(html, /id="consent"/);
   assert.match(html, /id="submit-button"/);
   assert.match(html, /type="module" src="\.\/app\.js"/);
+
   assert.match(html, /通常UI/);
 
   // Feature-detect path must not require modelContext to render the form.
+  assert.match(app, /registerContactFormTool/);
   assert.match(app, /modelContext/);
   assert.match(app, /unsupported/);
   assert.doesNotMatch(app, /navigator\.modelContext/);
